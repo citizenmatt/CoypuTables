@@ -1,0 +1,987 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Coypu</name>
+    </assembly>
+    <members>
+        <member name="T:Coypu.Configuration">
+            <summary>
+            Global configuration settings
+            </summary>
+        </member>
+        <member name="M:Coypu.Configuration.Reset">
+            <summary>
+            Reset all configuration settings to their default values
+            </summary>
+        </member>
+        <member name="P:Coypu.Configuration.Timeout">
+            <summary>
+            <para>When retrying, how long to wait for elements to appear or actions to complete without error.</para>
+            <para>Default: 10sec</para>
+            </summary>
+        </member>
+        <member name="P:Coypu.Configuration.RetryInterval">
+            <summary>
+            <para>How long to wait between retries</para>
+            <para>Default: 100ms</para>
+            </summary>
+        </member>
+        <member name="P:Coypu.Configuration.Browser">
+            <summary>
+            <para>Specifies the browser you would like to control</para>
+            <para>Default: Firefox</para>
+            </summary>
+        </member>
+        <member name="P:Coypu.Configuration.Driver">
+            <summary>
+            <para>Specifies the driver you would like to use to control the browser</para> 
+            <para>Default: SeleniumWebDriver</para>
+            </summary>
+        </member>
+        <member name="P:Coypu.Configuration.WaitBeforeClick">
+            <summary>
+            <para>How long to wait between finding an element and clicking it.</para>
+            <para>Default: zero</para>
+            </summary>
+        </member>
+        <member name="P:Coypu.Configuration.AppHost">
+            <summary>
+            <para>The host of the website you are testing, e.g. 'github.com'</para>
+            <para>Default: localhost</para>
+            </summary>
+        </member>
+        <member name="P:Coypu.Configuration.Port">
+            <summary>
+            <para>The port of the website you are testing</para>
+            <para>Default: 80</para>
+            </summary>
+        </member>
+        <member name="P:Coypu.Configuration.SSL">
+            <summary>
+            <para>Whether to use the HTTPS protocol to connect to website you are testing</para>
+            <para>Default: false</para>
+            </summary>
+        </member>
+        <member name="T:Coypu.Element">
+            <summary>
+            An HTML element
+            </summary>
+        </member>
+        <member name="P:Coypu.Element.Id">
+            <summary>
+            The value of the 'id' attribute
+            </summary>
+        </member>
+        <member name="P:Coypu.Element.Text">
+            <summary>
+            The inner text of the element
+            </summary>
+        </member>
+        <member name="P:Coypu.Element.Value">
+            <summary>
+            The value of the 'value' attribute
+            </summary>
+        </member>
+        <member name="P:Coypu.Element.Name">
+            <summary>
+            The value of the 'name' attribute
+            </summary>
+        </member>
+        <member name="P:Coypu.Element.SelectedOption">
+            <summary>
+            The selected option - applies to select elements only
+            </summary>
+        </member>
+        <member name="P:Coypu.Element.Selected">
+            <summary>
+            Whether the element is selected
+            </summary>
+        </member>
+        <member name="P:Coypu.Element.Native">
+            <summary>
+            The native element returned by your chosen driver
+            </summary>
+        </member>
+        <member name="P:Coypu.Element.Item(System.String)">
+            <summary>
+            The attributes of the HTML element
+            </summary>
+        </member>
+        <member name="T:Coypu.Session">
+            <summary>
+            A browser session
+            </summary>
+        </member>
+        <member name="M:Coypu.Scope`1.ClickButton(System.String)">
+            <summary>
+            Click a button, input of type button|submit|image or div with the css class "button"
+            </summary>
+            <param name="locator">The text/value, name or id of the button</param>
+            <exception cref="T:Coypu.MissingHtmlException">Thrown if the element cannot be found</exception>
+        </member>
+        <member name="M:Coypu.Scope`1.ClickLink(System.String)">
+            <summary>
+            Click the first matching link
+            </summary>
+            <param name="locator">The text of the link</param>
+            <exception cref="T:Coypu.MissingHtmlException">Thrown if the element cannot be found</exception>
+        </member>
+        <member name="M:Coypu.Scope`1.ClickButton(System.String,System.Func{System.Boolean},System.TimeSpan)">
+            <summary>
+            <para>Click a button, input of type button|submit|image or div with the css class "button".</para>
+            <para>Wait for a condition to be satisfied for a specified time otherwise click and wait again.</para>
+            <para>Continues until the expected condition is satisfied or the <see cref="P:Coypu.Configuration.Timeout"/> is reached.</para>
+            </summary>
+            <param name="locator">The text/value, name or id of the button</param>
+            <param name="until">The condition to be satisfied</param>
+            <param name="waitBetweenRetries">How long to wait for the condition to be satisfied before clicking again</param>
+            <returns>The first matching button</returns>
+            <exception cref="T:Coypu.MissingHtmlException">Thrown if the element cannot be found</exception>
+        </member>
+        <member name="M:Coypu.Scope`1.ClickLink(System.String,System.Func{System.Boolean},System.TimeSpan)">
+            <summary>
+            <para>Click a link and wait for a condition to be satisfied for a specified time otherwise click and wait again.</para> 
+            <para>Continues until the expected condition is satisfied or the <see cref="P:Coypu.Configuration.Timeout"/> is reached.</para>
+            </summary>
+            <param name="locator">The text of the link</param>
+            <param name="until">The condition to be satisfied</param>
+            <param name="waitBetweenRetries">How long to wait for the condition to be satisfied before clicking again</param>
+            <returns>The first matching button</returns>
+            <exception cref="T:Coypu.MissingHtmlException">Thrown if the element cannot be found</exception>
+        </member>
+        <member name="M:Coypu.Scope`1.FindButton(System.String)">
+            <summary>
+            Find the first input of type button|submit|image or div with the css class "button" to appear within the <see cref="P:Coypu.Configuration.Timeout"/> .
+            </summary>
+            <param name="locator">The text/value, name or id of the button</param>
+            <returns>A button</returns>
+            <exception cref="T:Coypu.MissingHtmlException">Thrown if the element cannot be found</exception>
+        </member>
+        <member name="M:Coypu.Scope`1.FindLink(System.String)">
+            <summary>
+            Find the first matching link to appear within the <see cref="P:Coypu.Configuration.Timeout"/>
+            </summary>
+            <param name="locator">The text of the link</param>
+            <returns>A link</returns>
+            <exception cref="T:Coypu.MissingHtmlException">Thrown if the element cannot be found</exception>
+        </member>
+        <member name="M:Coypu.Scope`1.FindField(System.String)">
+            <summary>
+            Find the first form field of any type to appear within the <see cref="P:Coypu.Configuration.Timeout"/>
+            </summary>
+            <param name="locator">The text of the associated label element, the id or name, the placeholder text, the value of a radio button, the last part of the id (for asp.net forms testing)</param>
+            <returns>A form field</returns>
+            <exception cref="T:Coypu.MissingHtmlException">Thrown if the element cannot be found</exception>
+        </member>
+        <member name="M:Coypu.Scope`1.FillIn(System.String)">
+            <summary>
+            Find the first matching text field to appear within the <see cref="P:Coypu.Configuration.Timeout"/> to fill in.
+            </summary>
+            <param name="locator">The text of the associated label element, the id or name, the placeholder text, the last part of the id (for asp.net forms testing)</param>
+            <returns>With</returns>
+        </member>
+        <member name="M:Coypu.Scope`1.FillIn(Coypu.Element)">
+            <summary>
+            Fill in a previously found text field
+            </summary>
+            <param name="element">The text field</param>
+            <returns>With</returns>
+        </member>
+        <member name="M:Coypu.Scope`1.Select(System.String)">
+            <summary>
+            Select an option from a select element
+            </summary>
+            <param name="option">The text or value of the option to select</param>
+            <returns>From</returns>
+        </member>
+        <member name="M:Coypu.Scope`1.HasContent(System.String)">
+            <summary>
+            Query whether text appears on the page within the <see cref="P:Coypu.Configuration.Timeout"/>
+            </summary>
+            <param name="text">The exact text to find</param>
+            <returns>Whether the text appears</returns>
+        </member>
+        <member name="M:Coypu.Scope`1.HasContentMatch(System.Text.RegularExpressions.Regex)">
+            <summary>
+            Query whether text appears on the page using a regular expression within the <see cref="P:Coypu.Configuration.Timeout"/>
+            </summary>
+            <param name="pattern">The regular expression to match</param>
+            <returns>Whether the page text matches</returns>
+        </member>
+        <member name="M:Coypu.Scope`1.HasNoContent(System.String)">
+            <summary>
+            Query whether text does not appear on the page. Returns as soon as the text does not appear, or when the <see cref="P:Coypu.Configuration.Timeout"/> is reached.
+            </summary>
+            <param name="text">The exact text expected not to be found</param>
+            <returns>Whether the text does not appear</returns>
+        </member>
+        <member name="M:Coypu.Scope`1.HasNoContentMatch(System.Text.RegularExpressions.Regex)">
+            <summary>
+            Query whether text does not appear on the page using a regular expression. Returns as soon as the text does not appear, or when the <see cref="P:Coypu.Configuration.Timeout"/> is reached.
+            </summary>
+            <param name="pattern">The regular expression expected not to match</param>
+            <returns>Whether the text does not appear</returns>
+        </member>
+        <member name="M:Coypu.Scope`1.HasCss(System.String)">
+            <summary>
+            Query whether an element matching a CSS selector appears on the page within the <see cref="P:Coypu.Configuration.Timeout"/>
+            </summary>
+            <param name="cssSelector">CSS selector</param>
+            <returns>Whether an element appears</returns>
+        </member>
+        <member name="M:Coypu.Scope`1.HasNoCss(System.String)">
+            <summary>
+            Query whether an element matching a CSS selector does not appear on the page. Returns as soon as the element does not appear, or when the <see cref="P:Coypu.Configuration.Timeout"/> is reached.
+            </summary>
+            <param name="cssSelector">CSS selector</param>
+            <returns>Whether an element does not appear</returns>
+        </member>
+        <member name="M:Coypu.Scope`1.HasXPath(System.String)">
+            <summary>
+            Query whether an element matching an XPath query appears on the page within the <see cref="P:Coypu.Configuration.Timeout"/>
+            </summary>
+            <param name="xpath">XPath query</param>
+            <returns>Whether an element appears</returns>
+        </member>
+        <member name="M:Coypu.Scope`1.HasNoXPath(System.String)">
+            <summary>
+            Query whether an element matching an XPath query appears on the page. Returns as soon as the element appears, or when the <see cref="P:Coypu.Configuration.Timeout"/> is reached.
+            </summary>
+            <param name="xpath">XPath query</param>
+            <returns>Whether an element appears</returns>
+        </member>
+        <member name="M:Coypu.Scope`1.FindCss(System.String)">
+            <summary>
+            Find an element matching a CSS selector
+            </summary>
+            <param name="cssSelector">CSS selector</param>
+            <returns>The first matchin element</returns>
+        </member>
+        <member name="M:Coypu.Scope`1.FindXPath(System.String)">
+            <summary>
+            Find an element matching an XPath query
+            </summary>
+            <param name="xpath">XPath query</param>
+            <returns>The first matchin element</returns>
+        </member>
+        <member name="M:Coypu.Scope`1.FindAllCss(System.String)">
+            <summary>
+            Find all elements matching a CSS selector at the current moment. Does not wait until the <see cref="P:Coypu.Configuration.Timeout"/> but returns as soon as the driver does.
+            </summary>
+            <param name="cssSelector">CSS selector</param>
+            <returns>All matching elements</returns>
+        </member>
+        <member name="M:Coypu.Scope`1.FindAllXPath(System.String)">
+            <summary>
+            Find all elements matching an XPath query at the current moment. Does not wait until the <see cref="P:Coypu.Configuration.Timeout"/> but returns as soon as the driver does.
+            </summary>
+            <param name="xpath">XPath query</param>
+            <returns>All matching elements</returns>
+        </member>
+        <member name="M:Coypu.Scope`1.FindSection(System.String)">
+             <summary>
+             <para>Find the first matching section to appear within the <see cref="P:Coypu.Configuration.Timeout"/></para>
+             <para>Sections are identified by the text of their child heading element, or by id.</para>
+             <para>E.g. to find this:
+             
+             <code>    
+                 &lt;div&gt;	
+                     &lt;h2&gt;Search results&lt;/h2&gt;
+                     ...
+                 &lt;/div&gt;</code>
+            
+             or this:
+            
+             <code>
+                 &lt;section&gt;
+                     &lt;h3&gt;Search results&lt;/h3&gt;
+                     ...
+                 &lt;/section&gt;</code>
+             </para>
+             <para>use this:</para>
+             <para>
+             <code>    FindSection("Search results")</code>
+             </para>
+             </summary>
+             <param name="locator">The text of a child heading element or section id</param>
+             <returns>An element</returns>
+             <exception cref="T:Coypu.MissingHtmlException">Thrown if the element cannot be found</exception>
+        </member>
+        <member name="M:Coypu.Scope`1.FindFieldset(System.String)">
+            <summary>
+            <para>Find the first matching fieldset to appear within the <see cref="P:Coypu.Configuration.Timeout"/></para>
+            <para>Fieldsets are identified by the text of their child legend element, or by id.</para>
+            <para>E.g. to find this:
+            
+            <code>    
+                &lt;fieldset&gt;	
+                    &lt;legend&gt;Advanced search&lt;/legend&gt;
+                    ...
+                &lt;/fieldset&gt;</code>
+            </para>
+            <para>use this:</para>
+            <para>
+            <code>    FindFieldset("Advanced search")</code>
+            </para>
+            </summary>
+            <param name="locator">The text of a child legend element or fieldset id</param>
+            <returns>An element</returns>
+            <exception cref="T:Coypu.MissingHtmlException">Thrown if the element cannot be found</exception>
+        </member>
+        <member name="M:Coypu.Scope`1.FindId(System.String)">
+            <summary>
+            Find the first matching element with specified id to appear within the <see cref="P:Coypu.Configuration.Timeout"/>
+            </summary>
+            <param name="id">Element id</param>
+            <returns>An elemenet</returns>
+            <exception cref="T:Coypu.MissingHtmlException">Thrown if the element cannot be found</exception>
+        </member>
+        <member name="M:Coypu.Scope`1.Check(System.String)">
+            <summary>
+            Check the first checkbox to appear within the <see cref="P:Coypu.Configuration.Timeout"/> matching the text of the associated label element, the id, name or the last part of the id (for asp.net forms testing).
+            </summary>
+            <param name="locator">The text of the associated label element, the id or name, the last part of the id (for asp.net forms testing)</param>
+            <exception cref="T:Coypu.MissingHtmlException">Thrown if the element cannot be found</exception>
+        </member>
+        <member name="M:Coypu.Scope`1.Uncheck(System.String)">
+            <summary>
+            Uncheck the first checkbox to appear within the <see cref="P:Coypu.Configuration.Timeout"/> matching the text of the associated label element, the id, name or the last part of the id (for asp.net forms testing).
+            </summary>
+            <param name="locator">The text of the associated label element, the id or name, the last part of the id (for asp.net forms testing)</param>
+            <exception cref="T:Coypu.MissingHtmlException">Thrown if the element cannot be found</exception>
+        </member>
+        <member name="M:Coypu.Scope`1.Choose(System.String)">
+            <summary>
+            Choose the first radio button to appear within the <see cref="P:Coypu.Configuration.Timeout"/> matching the text of the associated label element, the id, the name, the value or the last part of the id (for asp.net forms testing).
+            </summary>
+            <param name="locator">The text of the associated label element, the id or name, the last part of the id (for asp.net forms testing)</param>
+            <exception cref="T:Coypu.MissingHtmlException">Thrown if the element cannot be found</exception>
+        </member>
+        <member name="M:Coypu.Scope`1.ExecuteScript(System.String)">
+            <summary>
+            Executes custom javascript in the browser
+            </summary>
+            <param name="javascript">JavaScript to execute</param>
+            <returns>Anything returned from the script</returns>
+        </member>
+        <member name="M:Coypu.Scope`1.Hover(Coypu.Element)">
+            <summary>
+            Hover the mouse over an element
+            </summary>
+            <param name="element">The element</param>
+        </member>
+        <member name="M:Coypu.Scope`1.Has(Coypu.ElementScope)">
+            <summary>
+            Query whether an element appears within the <see cref="P:Coypu.Configuration.Timeout"/>
+            </summary>
+            <param name="findElement">A function to find an element</param>
+        </member>
+        <member name="M:Coypu.Scope`1.HasNo(Coypu.ElementScope)">
+            <summary>
+            Query whether an element does not appear. Returns as soon as the element does not appear or after the <see cref="P:Coypu.Configuration.Timeout"/>
+            </summary>
+            <param name="findElement">A function to find an element</param>
+        </member>
+        <member name="M:Coypu.Scope`1.RetryUntilTimeout(System.Action)">
+            <summary>
+            <para>Retry an action on any exception until it succeeds. Once the <see cref="P:Coypu.Configuration.Timeout"/> is passed any exception will be rethrown.</para>
+            <para>Waits for the <see cref="P:Coypu.Configuration.RetryInterval"/> between retries</para>
+            </summary>
+            <param name="action">An action</param>
+        </member>
+        <member name="M:Coypu.Scope`1.RetryUntilTimeout``1(System.Func{``0})">
+            <summary>
+            <para>Retry a function on any exception until it succeeds. Once the <see cref="P:Coypu.Configuration.Timeout"/> is passed any exception will be rethrown.</para>
+            <para>Waits for the <see cref="P:Coypu.Configuration.RetryInterval"/> between retries</para>
+            </summary>
+            <param name="function">A function</param>
+        </member>
+        <member name="M:Coypu.Scope`1.Query``1(System.Func{``0},``0)">
+            <summary>
+            <para>Execute a query repeatedly until either the expected result is returned or the <see cref="P:Coypu.Configuration.Timeout"/> is passed.</para>
+            <para>Once the <see cref="P:Coypu.Configuration.Timeout"/> is passed any result will be returned or any exception will be rethrown.</para>
+            <para>Waits for the <see cref="P:Coypu.Configuration.RetryInterval"/> between retries.</para>
+            </summary>
+            <param name="query">A query</param>
+            <param name="expecting">Expected result</param>
+        </member>
+        <member name="M:Coypu.Scope`1.TryUntil(System.Action,System.Func{System.Boolean},System.TimeSpan)">
+            <summary>
+            <para>Execute an action repeatedly until a condition is met.</para>
+            <para>Allows the time specified in <paramref name="waitBeforeRetry"/> for the <paramref name="until"/> condition to be met before each retry.</para>
+            <para>Once the <see cref="P:Coypu.Configuration.Timeout"/> is passed a Coypu.MissingHtmlException will be thrown.</para>
+            </summary>
+            <param name="tryThis">The action to try</param>
+            <param name="until">The condition to be met</param>
+            <param name="waitBeforeRetry">How long to wait for the condition</param>
+            <exception cref="T:Coypu.MissingHtmlException">Thrown if the until condition is never met</exception>
+        </member>
+        <member name="M:Coypu.Scope`1.FindState(Coypu.State[])">
+            <summary>
+            <para>Find the first from a list of possible states that your page may arrive at.</para>
+            <para>Returns as soon as any of the possible states is found.</para>
+            <para>E.g.:</para>
+            
+            <code>  
+             var signedIn = new State(() => browser.HasContent("Signed in as:"));
+             var signedOut = new State(() => browser.HasContent("Please sign in"));
+             
+             if (browser.FindState(signedIn,signedOut) == signedIn) 
+             {
+               browser.ClickLink("Sign out");
+             }
+             </code>
+             </summary>
+            <param name="states">The possible states you are expecting</param>
+            <returns></returns>
+        </member>
+        <member name="M:Coypu.Scope`1.TryUntil(Coypu.Actions.DriverAction,Coypu.Predicates.Predicate,System.TimeSpan)">
+            <summary>
+            <para>Execute an action repeatedly until a condition is met.</para>
+            <para>Allows the time specified in <paramref name="waitBeforeRetry"/> for the <paramref name="until"/> predicate to be met before each retry.</para>
+            <para>Once the <see cref="P:Coypu.Configuration.Timeout"/> is passed a Coypu.MissingHtmlException will be thrown.</para>
+            </summary>
+            <param name="tryThis">The action to try</param>
+            <param name="until">The condition to be met</param>
+            <param name="waitBeforeRetry">How long to wait for the condition</param>
+            <exception cref="T:Coypu.MissingHtmlException">Thrown if the until condition is never met</exception>
+        </member>
+        <member name="M:Coypu.Session.Dispose">
+            <summary>
+            Disposes the current session, closing any open browser.
+            </summary>
+        </member>
+        <member name="M:Coypu.Session.HasDialog(System.String)">
+            <summary>
+            Check that a dialog with the specified text appears within the <see cref="P:Coypu.Configuration.Timeout"/>
+            </summary>
+            <param name="withText">Dialog text</param>
+            <returns>Whether an element appears</returns>
+        </member>
+        <member name="M:Coypu.Session.HasNoDialog(System.String)">
+            <summary>
+            Check that a dialog with the specified is not present. Returns as soon as the dialog is not present, or when the <see cref="P:Coypu.Configuration.Timeout"/> is reached.
+            </summary>
+            <param name="withText">Dialog text</param>
+            <returns>Whether an element does not appears</returns>
+        </member>
+        <member name="M:Coypu.Session.AcceptModalDialog">
+            <summary>
+            Accept the first modal dialog to appear within the <see cref="P:Coypu.Configuration.Timeout"/>
+            </summary>
+            <exception cref="T:Coypu.MissingHtmlException">Thrown if the dialog cannot be found</exception>
+        </member>
+        <member name="M:Coypu.Session.CancelModalDialog">
+            <summary>
+            Cancel the first modal dialog to appear within the <see cref="P:Coypu.Configuration.Timeout"/>
+            </summary>
+            <exception cref="T:Coypu.MissingHtmlException">Thrown if the dialog cannot be found</exception>
+        </member>
+        <member name="M:Coypu.Session.WithIndividualTimeout(System.TimeSpan,System.Action)">
+            <summary>
+            <para>Use an <param name="individualTimeout"/> for everything you do within an <param name="action"/> - temporarilly overriding the <see cref="P:Coypu.Configuration.Timeout"/></para>
+            <para>For when you need an unusually long (or short) timeout for a particular interaction.</para>
+            <para>E.g.:
+            <code>
+              session.FillIn("Attachment").With(@"c:\coypu\bigfile.mp4");
+              session.Click("Upload");
+              session.WithIndividualTimeout(Timespan.FromSeconds(60), () =&gt; session.ClickButton("Delete bigfile.mp4"));
+                 </code>
+            </para>
+            </summary>
+        </member>
+        <member name="M:Coypu.Session.WithIndividualTimeout``1(System.TimeSpan,System.Func{``0})">
+            <summary>
+            <para>Use an <param name="individualTimeout"/> for everything you do within a <param name="function"/> - temporarilly overriding the <see cref="P:Coypu.Configuration.Timeout"/></para>
+            <para>For when you need an unusually long (or short) timeout for a particular interaction.</para>
+            <para>E.g.:
+            <code>
+              session.FillIn("Attachment").With(@"c:\coypu\bigfile.mp4");
+              session.Click("Upload");
+              bool uploaded = session.WithIndividualTimeout(Timespan.FromSeconds(60), () =&gt; session.HasContent("File bigfile.mp4 (10.5mb) uploaded successfully"));
+                 </code>
+            </para>
+            </summary>
+        </member>
+        <member name="M:Coypu.Session.SaveWebResource(System.String,System.String)">
+            <summary>
+            Saves a resource from the web to a local file using the cookies from the current browser session.
+            Allows you to sign in through the browser and then directly download a resource restricted to signed-in users.
+            </summary>
+            <param name="resource"> The location of the resource to download</param>
+            <param name="saveAs">Path to save the file to</param>
+        </member>
+        <member name="M:Coypu.Session.Visit(System.String)">
+            <summary>
+            Visit a url in the browser
+            </summary>
+            <param name="virtualPath">Virtual paths will use the Configuration.AppHost,Port,SSL settings. Otherwise supply a fully qualified URL.</param>
+        </member>
+        <member name="P:Coypu.Session.Native">
+            <summary>
+            The native driver for the Coypu.Driver / browser combination you supplied. E.g. for SeleniumWebDriver + Firefox it will currently be a OpenQA.Selenium.Firefox.FirefoxDriver.
+            </summary>
+        </member>
+        <member name="P:Coypu.Session.Location">
+            <summary>
+            The current location of the browser
+            </summary>
+        </member>
+        <member name="T:Coypu.Drivers.XPath">
+            <summary>
+            Helper for formatting XPath queries
+            </summary>
+        </member>
+        <member name="M:Coypu.Drivers.XPath.Format(System.String,System.Object[])">
+            <summary>
+            <para>Format an XPath query that uses string values for comparison that may contain single or double quotes</para>
+            <para>Wraps the string in the appropriate quotes or uses concat() to separate them if both are present.</para>
+            <para>Usage:</para>
+            <code>  new XPath().Format(".//element[@attribute1 = {0} and @attribute2 = {1}]",inputOne,inputTwo) </code>
+            </summary>
+            <param name="value"></param>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Coypu.SelectFrom.From(System.String)">
+            <summary>
+            Find the first matching select to appear within the Configuration.Timeout from which to select this option.
+            </summary>
+            <param name="locator">The text of the associated label element, the id or name, the last part of the id (for asp.net forms testing)</param>
+            <exception cref="T:Coypu.MissingHtmlException">Thrown if the element cannot be found</exception>
+        </member>
+        <member name="T:Coypu.Drivers.BrowserNotSupportedException">
+            <summary>
+            Thrown when your chosen browser is not supported by your chosen driver
+            </summary>
+        </member>
+        <member name="T:Coypu.State">
+            <summary>
+             A possible state for the current page
+            </summary>
+        </member>
+        <member name="M:Coypu.State.#ctor(System.Func{System.Boolean})">
+            <summary>
+             Describe a possible state for the page with a condition to identify this state.
+            </summary>
+            <param name="condition">How to identify this state</param>
+        </member>
+        <member name="T:Coypu.MissingHtmlException">
+            <summary>
+            Thrown whenever some expected HTML cannot be found
+            </summary>
+        </member>
+        <member name="M:Coypu.FillInWith.With(System.String)">
+            <summary>
+            Supply a value for the text field
+            </summary>
+            <param name="value">The value to fill in</param>
+            <exception cref="T:Coypu.MissingHtmlException">Thrown if the element cannot be found</exception>
+        </member>
+        <member name="M:Coypu.DriverScope.ClickButton(System.String)">
+            <summary>
+            Click a button, input of type button|submit|image or div with the css class "button"
+            </summary>
+            <param name="locator">The text/value, name or id of the button</param>
+            <exception cref="T:Coypu.MissingHtmlException">Thrown if the element cannot be found</exception>
+        </member>
+        <member name="M:Coypu.DriverScope.ClickLink(System.String)">
+            <summary>
+            Click the first matching link
+            </summary>
+            <param name="locator">The text of the link</param>
+            <exception cref="T:Coypu.MissingHtmlException">Thrown if the element cannot be found</exception>
+        </member>
+        <member name="M:Coypu.DriverScope.Click(Coypu.Element)">
+            <summary>
+            Click a previously found element
+            </summary>
+            <param name="element">The element to click</param>
+            <exception cref="T:Coypu.MissingHtmlException">Thrown if the element cannot be found</exception>
+        </member>
+        <member name="M:Coypu.DriverScope.ClickButton(System.String,System.Func{System.Boolean},System.TimeSpan)">
+            <summary>
+            <para>Click a button, input of type button|submit|image or div with the css class "button".</para>
+            <para>Wait for a condition to be satisfied for a specified time otherwise click and wait again.</para>
+            <para>Continues until the expected condition is satisfied or the <see cref="P:Coypu.Configuration.Timeout"/> is reached.</para>
+            </summary>
+            <param name="locator">The text/value, name or id of the button</param>
+            <param name="until">The condition to be satisfied</param>
+            <param name="waitBetweenRetries">How long to wait for the condition to be satisfied before clicking again</param>
+            <returns>The first matching button</returns>
+            <exception cref="T:Coypu.MissingHtmlException">Thrown if the element cannot be found</exception>
+        </member>
+        <member name="M:Coypu.DriverScope.ClickButton(System.String,Coypu.Predicates.Predicate,System.TimeSpan)">
+            <summary>
+            <para>Click a button, input of type button|submit|image or div with the css class "button".</para>
+            <para>Wait for a condition to be satisfied for a specified time otherwise click and wait again.</para>
+            <para>Continues until the expected condition is satisfied or the <see cref="P:Coypu.Configuration.Timeout"/> is reached.</para>
+            </summary>
+            <param name="locator">The text/value, name or id of the button</param>
+            <param name="until">The condition to be satisfied</param>
+            <param name="waitBetweenRetries">How long to wait for the condition to be satisfied before clicking again</param>
+            <returns>The first matching button</returns>
+            <exception cref="T:Coypu.MissingHtmlException">Thrown if the element cannot be found</exception>
+        </member>
+        <member name="M:Coypu.DriverScope.ClickLink(System.String,Coypu.Predicates.Predicate,System.TimeSpan)">
+            <summary>
+            <para>Click a link and wait for a condition to be satisfied for a specified time otherwise click and wait again.</para> 
+            <para>Continues until the expected condition is satisfied or the <see cref="P:Coypu.Configuration.Timeout"/> is reached.</para>
+            </summary>
+            <param name="locator">The text of the link</param>
+            <param name="until">The condition to be satisfied</param>
+            <param name="waitBetweenRetries">How long to wait for the condition to be satisfied before clicking again</param>
+            <returns>The first matching button</returns>
+            <exception cref="T:Coypu.MissingHtmlException">Thrown if the element cannot be found</exception>
+        </member>
+        <member name="M:Coypu.DriverScope.ClickLink(System.String,System.Func{System.Boolean},System.TimeSpan)">
+            <summary>
+            <para>Click a link and wait for a condition to be satisfied for a specified time otherwise click and wait again.</para> 
+            <para>Continues until the expected condition is satisfied or the <see cref="P:Coypu.Configuration.Timeout"/> is reached.</para>
+            </summary>
+            <param name="locator">The text of the link</param>
+            <param name="until">The condition to be satisfied</param>
+            <param name="waitBetweenRetries">How long to wait for the condition to be satisfied before clicking again</param>
+            <returns>The first matching button</returns>
+            <exception cref="T:Coypu.MissingHtmlException">Thrown if the element cannot be found</exception>
+        </member>
+        <member name="M:Coypu.DriverScope.FindButton(System.String)">
+            <summary>
+            Find the first input of type button|submit|image or div with the css class "button" to appear within the <see cref="P:Coypu.Configuration.Timeout"/> .
+            </summary>
+            <param name="locator">The text/value, name or id of the button</param>
+            <returns>A button</returns>
+            <exception cref="T:Coypu.MissingHtmlException">Thrown if the element cannot be found</exception>
+        </member>
+        <member name="M:Coypu.DriverScope.FindLink(System.String)">
+            <summary>
+            Find the first matching link to appear within the <see cref="P:Coypu.Configuration.Timeout"/>
+            </summary>
+            <param name="locator">The text of the link</param>
+            <returns>A link</returns>
+            <exception cref="T:Coypu.MissingHtmlException">Thrown if the element cannot be found</exception>
+        </member>
+        <member name="M:Coypu.DriverScope.FindField(System.String)">
+            <summary>
+            Find the first form field of any type to appear within the <see cref="P:Coypu.Configuration.Timeout"/>
+            </summary>
+            <param name="locator">The text of the associated label element, the id or name, the placeholder text, the value of a radio button, the last part of the id (for asp.net forms testing)</param>
+            <returns>A form field</returns>
+            <exception cref="T:Coypu.MissingHtmlException">Thrown if the element cannot be found</exception>
+        </member>
+        <member name="M:Coypu.DriverScope.FillIn(System.String)">
+            <summary>
+            Find the first matching text field to appear within the <see cref="P:Coypu.Configuration.Timeout"/> to fill in.
+            </summary>
+            <param name="locator">The text of the associated label element, the id or name, the placeholder text, the last part of the id (for asp.net forms testing)</param>
+            <returns>With</returns>
+        </member>
+        <member name="M:Coypu.DriverScope.FillIn(Coypu.Element)">
+            <summary>
+            Fill in a previously found text field
+            </summary>
+            <param name="element">The text field</param>
+            <returns>With</returns>
+        </member>
+        <member name="M:Coypu.DriverScope.Select(System.String)">
+            <summary>
+            Select an option from a select element
+            </summary>
+            <param name="option">The text or value of the option to select</param>
+            <returns>From</returns>
+        </member>
+        <member name="M:Coypu.DriverScope.HasContent(System.String)">
+            <summary>
+            Query whether text appears on the page within the <see cref="P:Coypu.Configuration.Timeout"/>
+            </summary>
+            <param name="text">The exact text to find</param>
+            <returns>Whether the text appears</returns>
+        </member>
+        <member name="M:Coypu.DriverScope.HasContentMatch(System.Text.RegularExpressions.Regex)">
+            <summary>
+            Query whether text appears on the page using a regular expression within the <see cref="P:Coypu.Configuration.Timeout"/>
+            </summary>
+            <param name="pattern">The regular expression to match</param>
+            <returns>Whether the page text matches</returns>
+        </member>
+        <member name="M:Coypu.DriverScope.HasNoContent(System.String)">
+            <summary>
+            Query whether text does not appear on the page. Returns as soon as the text does not appear, or when the <see cref="P:Coypu.Configuration.Timeout"/> is reached.
+            </summary>
+            <param name="text">The exact text expected not to be found</param>
+            <returns>Whether the text does not appear</returns>
+        </member>
+        <member name="M:Coypu.DriverScope.HasNoContentMatch(System.Text.RegularExpressions.Regex)">
+            <summary>
+            Query whether text does not appear on the page using a regular expression. Returns as soon as the text does not appear, or when the <see cref="P:Coypu.Configuration.Timeout"/> is reached.
+            </summary>
+            <param name="pattern">The regular expression expected not to match</param>
+            <returns>Whether the text does not appear</returns>
+        </member>
+        <member name="M:Coypu.DriverScope.HasCss(System.String)">
+            <summary>
+            Query whether an element matching a CSS selector appears on the page within the <see cref="P:Coypu.Configuration.Timeout"/>
+            </summary>
+            <param name="cssSelector">CSS selector</param>
+            <returns>Whether an element appears</returns>
+        </member>
+        <member name="M:Coypu.DriverScope.HasNoCss(System.String)">
+            <summary>
+            Query whether an element matching a CSS selector does not appear on the page. Returns as soon as the element does not appear, or when the <see cref="P:Coypu.Configuration.Timeout"/> is reached.
+            </summary>
+            <param name="cssSelector">CSS selector</param>
+            <returns>Whether an element does not appear</returns>
+        </member>
+        <member name="M:Coypu.DriverScope.HasXPath(System.String)">
+            <summary>
+            Query whether an element matching an XPath query appears on the page within the <see cref="P:Coypu.Configuration.Timeout"/>
+            </summary>
+            <param name="xpath">XPath query</param>
+            <returns>Whether an element appears</returns>
+        </member>
+        <member name="M:Coypu.DriverScope.HasNoXPath(System.String)">
+            <summary>
+            Query whether an element matching an XPath query appears on the page. Returns as soon as the element appears, or when the <see cref="P:Coypu.Configuration.Timeout"/> is reached.
+            </summary>
+            <param name="xpath">XPath query</param>
+            <returns>Whether an element appears</returns>
+        </member>
+        <member name="M:Coypu.DriverScope.FindCss(System.String)">
+            <summary>
+            Find an element matching a CSS selector
+            </summary>
+            <param name="cssSelector">CSS selector</param>
+            <returns>The first matchin element</returns>
+        </member>
+        <member name="M:Coypu.DriverScope.FindXPath(System.String)">
+            <summary>
+            Find an element matching an XPath query
+            </summary>
+            <param name="xpath">XPath query</param>
+            <returns>The first matchin element</returns>
+        </member>
+        <member name="M:Coypu.DriverScope.FindAllCss(System.String)">
+            <summary>
+            Find all elements matching a CSS selector at the current moment. Does not wait until the <see cref="P:Coypu.Configuration.Timeout"/> but returns as soon as the driver does.
+            </summary>
+            <param name="cssSelector">CSS selector</param>
+            <returns>All matching elements</returns>
+        </member>
+        <member name="M:Coypu.DriverScope.FindAllXPath(System.String)">
+            <summary>
+            Find all elements matching an XPath query at the current moment. Does not wait until the <see cref="P:Coypu.Configuration.Timeout"/> but returns as soon as the driver does.
+            </summary>
+            <param name="xpath">XPath query</param>
+            <returns>All matching elements</returns>
+        </member>
+        <member name="M:Coypu.DriverScope.FindSection(System.String)">
+             <summary>
+             <para>Find the first matching section to appear within the <see cref="P:Coypu.Configuration.Timeout"/></para>
+             <para>Sections are identified by the text of their child heading element, or by id.</para>
+             <para>E.g. to find this:
+             
+             <code>    
+                 &lt;div&gt;	
+                     &lt;h2&gt;Search results&lt;/h2&gt;
+                     ...
+                 &lt;/div&gt;</code>
+            
+             or this:
+            
+             <code>
+                 &lt;section&gt;
+                     &lt;h3&gt;Search results&lt;/h3&gt;
+                     ...
+                 &lt;/section&gt;</code>
+             </para>
+             <para>use this:</para>
+             <para>
+             <code>    FindSection("Search results")</code>
+             </para>
+             </summary>
+             <param name="locator">The text of a child heading element or section id</param>
+             <returns>An element</returns>
+             <exception cref="T:Coypu.MissingHtmlException">Thrown if the element cannot be found</exception>
+        </member>
+        <member name="M:Coypu.DriverScope.FindFieldset(System.String)">
+            <summary>
+            <para>Find the first matching fieldset to appear within the <see cref="P:Coypu.Configuration.Timeout"/></para>
+            <para>Fieldsets are identified by the text of their child legend element, or by id.</para>
+            <para>E.g. to find this:
+            
+            <code>    
+                &lt;fieldset&gt;	
+                    &lt;legend&gt;Advanced search&lt;/legend&gt;
+                    ...
+                &lt;/fieldset&gt;</code>
+            </para>
+            <para>use this:</para>
+            <para>
+            <code>    FindFieldset("Advanced search")</code>
+            </para>
+            </summary>
+            <param name="locator">The text of a child legend element or fieldset id</param>
+            <returns>An element</returns>
+            <exception cref="T:Coypu.MissingHtmlException">Thrown if the element cannot be found</exception>
+        </member>
+        <member name="M:Coypu.DriverScope.FindId(System.String)">
+            <summary>
+            Find the first matching element with specified id to appear within the <see cref="P:Coypu.Configuration.Timeout"/>
+            </summary>
+            <param name="id">Element id</param>
+            <returns>An elemenet</returns>
+            <exception cref="T:Coypu.MissingHtmlException">Thrown if the element cannot be found</exception>
+        </member>
+        <member name="M:Coypu.DriverScope.Check(System.String)">
+            <summary>
+            Check the first checkbox to appear within the <see cref="P:Coypu.Configuration.Timeout"/> matching the text of the associated label element, the id, name or the last part of the id (for asp.net forms testing).
+            </summary>
+            <param name="locator">The text of the associated label element, the id or name, the last part of the id (for asp.net forms testing)</param>
+            <exception cref="T:Coypu.MissingHtmlException">Thrown if the element cannot be found</exception>
+        </member>
+        <member name="M:Coypu.DriverScope.Uncheck(System.String)">
+            <summary>
+            Uncheck the first checkbox to appear within the <see cref="P:Coypu.Configuration.Timeout"/> matching the text of the associated label element, the id, name or the last part of the id (for asp.net forms testing).
+            </summary>
+            <param name="locator">The text of the associated label element, the id or name, the last part of the id (for asp.net forms testing)</param>
+            <exception cref="T:Coypu.MissingHtmlException">Thrown if the element cannot be found</exception>
+        </member>
+        <member name="M:Coypu.DriverScope.Choose(System.String)">
+            <summary>
+            Choose the first radio button to appear within the <see cref="P:Coypu.Configuration.Timeout"/> matching the text of the associated label element, the id, the name, the value or the last part of the id (for asp.net forms testing).
+            </summary>
+            <param name="locator">The text of the associated label element, the id or name, the last part of the id (for asp.net forms testing)</param>
+            <exception cref="T:Coypu.MissingHtmlException">Thrown if the element cannot be found</exception>
+        </member>
+        <member name="M:Coypu.DriverScope.ExecuteScript(System.String)">
+            <summary>
+            Executes custom javascript in the browser
+            </summary>
+            <param name="javascript">JavaScript to execute</param>
+            <returns>Anything returned from the script</returns>
+        </member>
+        <member name="M:Coypu.DriverScope.Hover(Coypu.Element)">
+            <summary>
+            Hover the mouse over an element
+            </summary>
+            <param name="findElement">The element to hover over</param>
+        </member>
+        <member name="M:Coypu.DriverScope.Has(Coypu.ElementScope)">
+            <summary>
+            Query whether an element appears within the <see cref="P:Coypu.Configuration.Timeout"/>
+            </summary>
+            <param name="findElement">A function to find an element</param>
+        </member>
+        <member name="M:Coypu.DriverScope.HasNo(Coypu.ElementScope)">
+            <summary>
+            Query whether an element does not appear. Returns as soon as the element does not appear or after the <see cref="P:Coypu.Configuration.Timeout"/>
+            </summary>
+            <param name="findElement">A function to find an element</param>
+        </member>
+        <member name="M:Coypu.DriverScope.RetryUntilTimeout(System.Action)">
+            <summary>
+            <para>Retry an action on any exception until it succeeds. Once the <see cref="P:Coypu.Configuration.Timeout"/> is passed any exception will be rethrown.</para>
+            <para>Waits for the <see cref="P:Coypu.Configuration.RetryInterval"/> between retries</para>
+            </summary>
+            <param name="action">An action</param>
+        </member>
+        <member name="M:Coypu.DriverScope.RetryUntilTimeout``1(System.Func{``0})">
+            <summary>
+            <para>Retry a function on any exception until it succeeds. Once the <see cref="P:Coypu.Configuration.Timeout"/> is passed any exception will be rethrown.</para>
+            <para>Waits for the <see cref="P:Coypu.Configuration.RetryInterval"/> between retries</para>
+            </summary>
+            <param name="function">A function</param>
+        </member>
+        <member name="M:Coypu.DriverScope.RetryUntilTimeout(Coypu.Actions.DriverAction)">
+            <summary>
+            <para>Retry an action on any exception until it succeeds. Once the <see cref="P:Coypu.Configuration.Timeout"/> is passed any exception will be rethrown.</para>
+            <para>Waits for the <see cref="P:Coypu.Configuration.RetryInterval"/> between retries</para>
+            </summary>
+            <param name="function">A function</param>
+        </member>
+        <member name="M:Coypu.DriverScope.Query``1(System.Func{``0},``0)">
+            <summary>
+            <para>Execute a query repeatedly until either the expected result is returned or the <see cref="P:Coypu.Configuration.Timeout"/> is passed.</para>
+            <para>Once the <see cref="P:Coypu.Configuration.Timeout"/> is passed any result will be returned or any exception will be rethrown.</para>
+            <para>Waits for the <see cref="P:Coypu.Configuration.RetryInterval"/> between retries.</para>
+            </summary>
+            <param name="query">A query</param>
+            <param name="expecting">Expected result</param>
+        </member>
+        <member name="M:Coypu.DriverScope.Query``1(Coypu.Queries.Query{``0})">
+            <summary>
+            <para>Execute a query repeatedly until either the expected result is returned or the <see cref="P:Coypu.Configuration.Timeout"/> is passed.</para>
+            <para>Once the <see cref="P:Coypu.Configuration.Timeout"/> is passed any result will be returned or any exception will be rethrown.</para>
+            <para>Waits for the <see cref="P:Coypu.Configuration.RetryInterval"/> between retries.</para>
+            </summary>
+            <param name="query">A query</param>
+        </member>
+        <member name="M:Coypu.DriverScope.TryUntil(System.Action,System.Func{System.Boolean},System.TimeSpan)">
+            <summary>
+            <para>Execute an action repeatedly until a condition is met.</para>
+            <para>Allows the time specified in <paramref name="waitBeforeRetry"/> for the <paramref name="until"/> condition to be met before each retry.</para>
+            <para>Once the <see cref="P:Coypu.Configuration.Timeout"/> is passed a Coypu.MissingHtmlException will be thrown.</para>
+            </summary>
+            <param name="tryThis">The action to try</param>
+            <param name="until">The condition to be met</param>
+            <param name="waitBeforeRetry">How long to wait for the condition</param>
+            <exception cref="T:Coypu.MissingHtmlException">Thrown if the until condition is never met</exception>
+        </member>
+        <member name="M:Coypu.DriverScope.TryUntil(Coypu.Actions.DriverAction,Coypu.Predicates.Predicate,System.TimeSpan)">
+            <summary>
+            <para>Execute an action repeatedly until a condition is met.</para>
+            <para>Allows the time specified in <paramref name="waitBeforeRetry"/> for the <paramref name="until"/> predicate to be met before each retry.</para>
+            <para>Once the <see cref="P:Coypu.Configuration.Timeout"/> is passed a Coypu.MissingHtmlException will be thrown.</para>
+            </summary>
+            <param name="tryThis">The action to try</param>
+            <param name="until">The condition to be met</param>
+            <param name="waitBeforeRetry">How long to wait for the condition</param>
+            <exception cref="T:Coypu.MissingHtmlException">Thrown if the until condition is never met</exception>
+        </member>
+        <member name="M:Coypu.DriverScope.FindState(Coypu.State[])">
+            <summary>
+            <para>Find the first from a list of possible states that your page may arrive at.</para>
+            <para>Returns as soon as any of the possible states is found.</para>
+            <para>E.g.:</para>
+            
+            <code>  
+             var signedIn = new State(() => browser.HasContent("Signed in as:"));
+             var signedOut = new State(() => browser.HasContent("Please sign in"));
+             
+             if (browser.FindState(signedIn,signedOut) == signedIn) 
+             {
+               browser.ClickLink("Sign out");
+             }
+             </code>
+             </summary>
+            <param name="states">The possible states you are expecting</param>
+            <returns></returns>
+        </member>
+        <member name="T:Coypu.Drivers.Browser">
+            <summary>
+            The browser that will be used by your chosen driver
+            </summary>
+        </member>
+        <member name="M:Coypu.Browser.NewSession">
+            <summary>
+            A new browser session. Control the lifecycle of this session with using{} / session.Dispose()
+            </summary>
+            <returns>The new session</returns>
+        </member>
+        <member name="M:Coypu.Browser.EndSession">
+            <summary>
+            End the current session, closing any open browser.
+            </summary>
+        </member>
+        <member name="P:Coypu.Browser.Session">
+            <summary>
+            The current browser session. Will start a new session if one does not already exist.
+            </summary>
+        </member>
+        <member name="P:Coypu.Browser.SessionIsActive">
+            <summary>
+            Whether there is an active session
+            </summary>
+        </member>
+    </members>
+</doc>
